@@ -4,7 +4,7 @@
 
 Battery-powered ESP32 + MFRC522 (RC522) RFID reader/writer, reachable over **Wi-Fi (LAN)**, **Bluetooth Low Energy** and **USB**, with an RGB status LED, INA219 battery monitoring and a Li-ion charger with charge-state detection.
 
-Status: **phases 0–7 implemented and verified on hardware** (see `CLAUDE.md` for what is still untested). Each phase below is one branch and one pull request. 🔀 marks work that can run in parallel.
+Status (2026-10-08): **phases 0–7 implemented; core features verified on hardware.** What is left is listed in [4.1 Remaining work](#41-remaining-work). Each phase below is one branch and one pull request. 🔀 marks work that can run in parallel.
 
 ---
 
@@ -169,7 +169,7 @@ Vite + TypeScript, no UI framework (small bundle for LittleFS). Clean, modern lo
 ## 3. File list (compact structure)
 
 ```
-Wireless RFID Reader/
+gapura/
 ├─ CLAUDE.md                 context for AI assistants & contributors (EN + ID)
 ├─ README.md / README.id.md  project overview, quick start
 ├─ LICENSE                   MIT
@@ -227,7 +227,34 @@ Wireless RFID Reader/
 | **5 BLE** | `ble` (NimBLE, chunking, passkey) | nRF Connect sends `ping` and receives events; free heap logged with Wi-Fi + BLE on |
 | **6 Dashboard** 🔀 (can start at Phase 3 with `mock.ts`) | All views, battery chip, Power view, PWA, build → `firmware/data/` | Served from `gapura.local`; local dev connects via Web Serial and Web Bluetooth |
 | **7 Hardening** | Mutex, watchdog, Wi-Fi reconnect, OTA (token-protected), deep sleep on critical battery, CI | CI green; 30-min stress test (scan + WS + BLE) without reboot; runtime on battery measured |
-| **8 Optional** | USB HID keyboard mode (ESP32-S3), MQTT/webhook, Flutter app, scan history backend | – |
+| **8 Optional** | ~~USB HID keyboard (ESP32-S3)~~ done as BLE HID keyboard mode; ~~webhook~~ done (HTTPS too); MQTT, Flutter app, scan history backend | – |
+
+### 4.1 Remaining work
+
+Updated 2026-10-08, in priority order.
+
+**Built, not yet tested on hardware**
+
+1. HTTPS webhook to the company server (so far only tested against httpbin.org).
+2. Real card tap with webhook and BLE keyboard mode on at the same time.
+3. Wi-Fi dropped twice right after a dashboard WebSocket client connected (30-min stress test); cause not found yet.
+4. `BAD_SIGNATURE` tamper test with the production secret.
+5. Low-battery warning, deep sleep and the 300 s timer wake.
+6. PN532, RDM6300 and the combined modes; INA219; external RGB LED and buzzer wiring.
+7. Setup hotspot `Gapura-Setup-XXXX` after the rename (only Wi-Fi STA was retested).
+
+**Not started**
+
+8. Battery voltage calibration of GPIO 6 against a multimeter.
+9. Runtime on battery measured (Phase 7 "done when").
+10. Dashboard redesign (UI design reference not received yet).
+11. Photos and schematic in `docs/hardware/` (Phase 0); the folder does not exist yet.
+
+**Optional / deferred (Phase 8)**
+
+12. MQTT as an extra channel (commands, status, OTA) next to the webhook, only after firmware and dashboard are polished.
+13. Flutter app.
+14. Scan history backend.
 
 ---
 

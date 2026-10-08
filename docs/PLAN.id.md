@@ -4,7 +4,7 @@
 
 Pembaca/penulis RFID ESP32 + MFRC522 (RC522) bertenaga baterai, dapat diakses lewat **Wi-Fi (LAN)**, **Bluetooth Low Energy**, dan **USB**, dilengkapi LED RGB sebagai indikator status, pemantauan baterai INA219, dan charger Li-ion dengan deteksi status pengisian.
 
-Status: **fase 0–7 sudah diimplementasikan dan diuji di perangkat** (lihat `CLAUDE.md` untuk yang belum diuji). Setiap fase di bawah = satu branch dan satu pull request. 🔀 menandai pekerjaan yang bisa dikerjakan paralel.
+Status (2026-10-08): **fase 0–7 sudah diimplementasikan; fitur inti sudah diuji di perangkat.** Sisa pekerjaan ada di [4.1 Sisa pekerjaan](#41-sisa-pekerjaan). Setiap fase di bawah = satu branch dan satu pull request. 🔀 menandai pekerjaan yang bisa dikerjakan paralel.
 
 ---
 
@@ -169,7 +169,7 @@ Vite + TypeScript tanpa framework UI (bundle kecil untuk LittleFS). Tampilan ber
 ## 3. Daftar file (struktur ringkas)
 
 ```
-Wireless RFID Reader/
+gapura/
 ├─ CLAUDE.md                 konteks untuk AI assistant & kontributor (EN + ID)
 ├─ README.md / README.id.md  gambaran proyek, quick start
 ├─ LICENSE                   MIT
@@ -227,7 +227,34 @@ Wireless RFID Reader/
 | **5 BLE** | `ble` (NimBLE, chunking, passkey) | nRF Connect bisa kirim `ping` dan menerima event; free heap dicatat saat Wi-Fi + BLE aktif |
 | **6 Dashboard** 🔀 (bisa mulai sejak Fase 3 dengan `mock.ts`) | Semua tampilan, chip baterai, tampilan Power, PWA, build → `firmware/data/` | Tersaji dari `gapura.local`; dev lokal terhubung via Web Serial dan Web Bluetooth |
 | **7 Penguatan** | Mutex, watchdog, reconnect Wi-Fi, OTA (dilindungi token), deep sleep saat baterai kritis, CI | CI hijau; uji stres 30 menit (scan + WS + BLE) tanpa reboot; durasi baterai terukur |
-| **8 Opsional** | Mode keyboard USB HID (ESP32-S3), MQTT/webhook, app Flutter, backend riwayat scan | – |
+| **8 Opsional** | ~~Keyboard USB HID (ESP32-S3)~~ selesai sebagai mode keyboard BLE HID; ~~webhook~~ selesai (termasuk HTTPS); MQTT, app Flutter, backend riwayat scan | – |
+
+### 4.1 Sisa pekerjaan
+
+Diperbarui 2026-10-08, urut prioritas.
+
+**Sudah dikode, belum diuji di hardware**
+
+1. Webhook HTTPS ke server perusahaan (baru diuji ke httpbin.org).
+2. Tap kartu nyata dengan webhook dan mode keyboard BLE aktif bersamaan.
+3. Wi-Fi putus dua kali tepat setelah client WebSocket dashboard tersambung (uji stres 30 menit); penyebab belum ditemukan.
+4. Tes pemalsuan `BAD_SIGNATURE` dengan secret produksi.
+5. Peringatan baterai rendah, deep sleep, dan bangun lewat timer 300 dtk.
+6. PN532, RDM6300 dan mode kombinasinya; INA219; wiring LED RGB dan buzzer eksternal.
+7. Hotspot setup `Gapura-Setup-XXXX` setelah ganti nama (yang diuji ulang baru Wi-Fi STA).
+
+**Belum dikerjakan**
+
+8. Kalibrasi tegangan baterai GPIO 6 dengan multimeter.
+9. Mengukur durasi baterai (syarat selesai Fase 7).
+10. Redesain dashboard (referensi desain UI belum diterima).
+11. Foto dan skematik di `docs/hardware/` (Fase 0); foldernya belum ada.
+
+**Opsional / ditunda (Fase 8)**
+
+12. MQTT sebagai kanal tambahan (perintah, status, OTA) di samping webhook, setelah firmware dan dashboard rapi.
+13. App Flutter.
+14. Backend riwayat scan.
 
 ---
 
