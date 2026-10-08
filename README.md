@@ -6,7 +6,7 @@
 
 Open-source, battery-powered **ESP32 + RC522** RFID reader/writer that any phone or PC can use over **Wi-Fi**, **Bluetooth LE** or **USB**, with one JSON protocol and a built-in web dashboard.
 
-**Status:** firmware and dashboard run on hardware (Waveshare ESP32-C5). See [docs/PLAN.md](docs/PLAN.md) and [CLAUDE.md](CLAUDE.md).
+**Status:** firmware and dashboard run on hardware (Waveshare ESP32-C5). **Online dashboard:** <https://skillshub-electronics.github.io/gapura/> (connects over Bluetooth or USB in Chrome/Edge, or `?demo`). See [docs/PLAN.md](docs/PLAN.md) and [CLAUDE.md](CLAUDE.md).
 
 ## Features
 
