@@ -4,7 +4,7 @@
 
 Pembaca/penulis RFID ESP32 + MFRC522 (RC522) bertenaga baterai, dapat diakses lewat **Wi-Fi (LAN)**, **Bluetooth Low Energy**, dan **USB**, dilengkapi LED RGB sebagai indikator status, pemantauan baterai INA219, dan charger Li-ion dengan deteksi status pengisian.
 
-Status: **perencanaan**, belum ada kode. Setiap fase di bawah = satu branch dan satu pull request. 🔀 menandai pekerjaan yang bisa dikerjakan paralel.
+Status: **fase 0–7 sudah diimplementasikan dan diuji di perangkat** (lihat `CLAUDE.md` untuk yang belum diuji). Setiap fase di bawah = satu branch dan satu pull request. 🔀 menandai pekerjaan yang bisa dikerjakan paralel.
 
 ---
 

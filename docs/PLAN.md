@@ -4,7 +4,7 @@
 
 Battery-powered ESP32 + MFRC522 (RC522) RFID reader/writer, reachable over **Wi-Fi (LAN)**, **Bluetooth Low Energy** and **USB**, with an RGB status LED, INA219 battery monitoring and a Li-ion charger with charge-state detection.
 
-Status: **planning** — no code yet. Each phase below is one branch and one pull request. 🔀 marks work that can run in parallel.
+Status: **phases 0–7 implemented and verified on hardware** (see `CLAUDE.md` for what is still untested). Each phase below is one branch and one pull request. 🔀 marks work that can run in parallel.
 
 ---
 
