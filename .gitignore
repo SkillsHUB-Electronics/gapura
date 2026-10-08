@@ -1,0 +1,26 @@
+# PlatformIO
+.pio/
+.vscode/
+firmware/data/
+
+# Secrets
+firmware/src/secrets.h
+
+# Node
+node_modules/
+dashboard/dist/
+
+# Python
+__pycache__/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Never commit credentials or backups
+github-recovery-codes*
+gapura-card-security.*
+*.gapura-key
+gapura-card-secret*
