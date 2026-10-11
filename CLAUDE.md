@@ -21,7 +21,10 @@ Build (Windows needs short `PLATFORMIO_WORKSPACE_DIR` and `PLATFORMIO_CORE_DIR=C
 |---|---|
 | `docs/PLAN.md` · `docs/PLAN.id.md` | components, pin map, power path, data flow, phases |
 | `docs/PROTOCOL.md` | JSON contract; firmware and dashboard must match it |
-| `README.md` · `README.id.md` | overview, quick start, contributing |
+| `README.md` · `README.id.md` | overview, quick start, docs index |
+| `CONTRIBUTING.md` · `CONTRIBUTING.id.md` | workflow and project rules for contributors |
+| `CHANGELOG.md` | user-visible changes; add a line under `Unreleased` |
+| `SECURITY.md` · `SUPPORT.md` · `CODE_OF_CONDUCT.md` | vulnerability reports, where to get help, community rules (English only) |
 
 When a decision changes, update PLAN (both languages) and the table below in the same commit.
 *Jika keputusan berubah, perbarui PLAN (dua bahasa) dan tabel di bawah dalam commit yang sama.*
