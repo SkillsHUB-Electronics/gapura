@@ -1,19 +1,25 @@
 name: Release
 
-# Pushing a tag like v0.2.0 builds the firmware and the dashboard file system
-# image and publishes them as a GitHub release with generated notes.
+# Pushing a tag like v0.2.0, or publishing a release on GitHub, builds the
+# firmware and the dashboard file system image and attaches them to the
+# release (created with generated notes when it does not exist yet).
 # Pull requests that touch this file run the build only, so the workflow is
 # checked before the next tag.
 
 on:
   push:
     tags: ["v*"]
+  release:
+    types: [published]
   pull_request:
     paths: [.github/workflows/release.yml]
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
 
 jobs:
   build:
@@ -70,11 +76,15 @@ jobs:
         with:
           name: gapura-release
           path: dist
-      - name: Create GitHub release
+      - name: Create or update GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --clobber
+            exit 0
+          fi
           gh release create "$TAG" dist/* \
             --repo "$GITHUB_REPOSITORY" \
             --title "Gapura $TAG" \

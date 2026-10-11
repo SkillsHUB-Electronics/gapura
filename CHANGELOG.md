@@ -4,14 +4,7 @@ All notable changes to Gapura are listed here. The format follows [Keep a Change
 
 ## [Unreleased]
 
-### Added
-
-- Community files: `CONTRIBUTING`, `CODE_OF_CONDUCT`, `SECURITY`, `SUPPORT` and this changelog.
-- Issue forms, a pull request template, `CODEOWNERS` and Dependabot for GitHub Actions and the dashboard.
-- Release workflow: pushing a `v*` tag builds the firmware and the dashboard file system image and attaches them to a GitHub release.
-- README with dashboard screenshots, badges, an architecture diagram and a documentation index (English and Indonesian).
-
-## [0.1.0] - 2026-10-08
+## [0.1.0] - 2026-10-11
 
 First public release of Gapura in this repository.
 
@@ -26,6 +19,12 @@ First public release of Gapura in this repository.
 - Over-the-air updates for firmware and dashboard, task watchdog, Wi-Fi setup hotspot `Gapura-Setup-XXXX`.
 - Mobile-first web dashboard (Vite + TypeScript) served from the device and published on GitHub Pages, with a `?demo` mode.
 - CI for native unit tests, the firmware build and the dashboard build.
+- Community files (`CONTRIBUTING`, `CODE_OF_CONDUCT`, `SECURITY`, `SUPPORT`), issue forms, a pull request template, `CODEOWNERS` and Dependabot.
+- Release workflow that attaches `firmware.bin`, `bootloader.bin`, `partitions.bin` and `littlefs.bin` to each GitHub release.
+
+### Fixed
+
+- Dashboard on phones: the logo in the header was empty, the connection chip did not shorten long names, and the scan history header and rows wrapped badly.
 
 [Unreleased]: https://github.com/SkillsHUB-Electronics/gapura/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/SkillsHUB-Electronics/gapura/releases/tag/v0.1.0
