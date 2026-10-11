@@ -50,7 +50,7 @@ function renderShell() {
                 battery.state === 'charging' ? icon('bolt') : icon('power'), `${battery.pct}%`)
             : null,
           h('span', { class: 'chip chip-link', title: info?.name ?? '' },
-            icon(transport.kind === 'mock' ? 'demo' : transport.kind), transport.label),
+            icon(transport.kind === 'mock' ? 'demo' : transport.kind), h('span', { class: 'chip-text' }, transport.label)),
           h('button', { class: 'icon-btn', title: 'Disconnect', 'aria-label': 'Disconnect', onclick: () => void device.disconnect() }, icon('logout')),
         ].filter((el) => el !== null)
       : [h('span', { class: 'chip chip-off' }, 'Not connected')]),
