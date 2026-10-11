@@ -1,0 +1,94 @@
+name: Bug report
+description: Something does not work as expected (firmware, dashboard, wiring or docs).
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please search existing issues first, and check the Troubleshooting table in the README.
+        **Remove passwords, card secrets and real card numbers** from anything you paste. Security problems go to SECURITY.md, not here.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Flash main with `pio run -t upload`
+        2. Connect the dashboard over Bluetooth
+        3. Tap a MIFARE Classic card
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Serial log or error output
+      description: Output of `pio device monitor`, the browser console, or the CLI around the problem.
+      render: text
+
+  - type: input
+    id: version
+    attributes:
+      label: Firmware version
+      description: The `fw` value from the `info` command or the Settings page, or the commit you built.
+      placeholder: "e.g. 0.1.0 or 43b5154"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reader
+    attributes:
+      label: Reader mode
+      options:
+        - rc522
+        - pn532
+        - rdm6300
+        - rc522+rdm6300
+        - pn532+rdm6300
+        - Not related to the reader
+    validations:
+      required: true
+
+  - type: dropdown
+    id: link
+    attributes:
+      label: Link
+      multiple: true
+      options:
+        - Wi-Fi (REST / WebSocket / gapura.local)
+        - Bluetooth LE (dashboard or app)
+        - Bluetooth LE keyboard mode
+        - USB serial (Web Serial or CLI)
+        - Webhook
+        - Not related to a link
+    validations:
+      required: true
+
+  - type: input
+    id: board
+    attributes:
+      label: Board
+      placeholder: "e.g. Waveshare ESP32-C5-WIFI6-KIT N16R8"
+
+  - type: input
+    id: client
+    attributes:
+      label: Browser, app and OS
+      placeholder: "e.g. Chrome 140 on Windows 11, Bluefy on iOS 26"
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Wiring photos, screenshots or anything else that helps.

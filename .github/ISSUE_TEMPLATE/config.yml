@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/SkillsHUB-Electronics/gapura/security/advisories/new
+    about: Please report vulnerabilities privately, not as a public issue.
+  - name: Try the dashboard demo
+    url: https://skillshub-electronics.github.io/gapura/?demo
+    about: See the dashboard with a simulated reader, no hardware needed.
+  - name: Documentation
+    url: https://github.com/SkillsHUB-Electronics/gapura#documentation
+    about: Plan, protocol, wiring and troubleshooting.

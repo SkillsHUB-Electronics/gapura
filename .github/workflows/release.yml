@@ -1,0 +1,82 @@
+name: Release
+
+# Pushing a tag like v0.2.0 builds the firmware and the dashboard file system
+# image and publishes them as a GitHub release with generated notes.
+# Pull requests that touch this file run the build only, so the workflow is
+# checked before the next tag.
+
+on:
+  push:
+    tags: ["v*"]
+  pull_request:
+    paths: [.github/workflows/release.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.platformio
+            firmware/.pio/libdeps
+          key: pio-${{ hashFiles('firmware/platformio.ini') }}
+      - run: pip install platformio
+
+      - name: Build dashboard into firmware/data
+        working-directory: dashboard
+        run: npm ci && npm run build
+
+      - name: Build firmware and LittleFS image
+        working-directory: firmware
+        run: |
+          pio run -e esp32c5
+          pio run -e esp32c5 -t buildfs
+
+      - name: Collect release files
+        run: |
+          mkdir -p dist
+          b=firmware/.pio/build/esp32c5
+          cp $b/firmware.bin $b/bootloader.bin $b/partitions.bin $b/littlefs.bin dist/
+          (cd dist && sha256sum *.bin > SHA256SUMS.txt)
+          ls -l dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gapura-release
+          path: dist/
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: gapura-release
+          path: dist
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" dist/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Gapura $TAG" \
+            --generate-notes \
+            --notes "Flash \`firmware.bin\` over USB or OTA, and \`littlefs.bin\` for the dashboard. See CHANGELOG.md for details."

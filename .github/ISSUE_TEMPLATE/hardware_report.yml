@@ -1,0 +1,50 @@
+name: Hardware compatibility report
+description: Share a board, reader or wiring you tested with Gapura (works or not).
+title: "[Hardware]: "
+labels:
+  - hardware
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reports from other boards and readers help everyone. Photos of the wiring are very welcome.
+
+  - type: input
+    id: board
+    attributes:
+      label: Board
+      placeholder: "e.g. ESP32-C5-DevKitC-1"
+    validations:
+      required: true
+
+  - type: input
+    id: reader
+    attributes:
+      label: Reader module and mode
+      placeholder: "e.g. PN532 (red board), mode pn532"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result
+      options:
+        - Works
+        - Works with changes (describe below)
+        - Does not work
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Firmware version or commit
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Wiring, power supply, changes you made, serial log, photos.
